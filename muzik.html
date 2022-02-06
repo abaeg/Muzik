@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- whole body -->
+    <div class="main_div">
+        <!-- music box -->
+        <div class="music_container">
+            <h2 id="title"> LOTUS LANE</h2>
+            <h3 id="artist"> The Loyalist</h3>
+            <!-- image -->
+            <div class="img_container">
+                <img src="Images/music1.jpg">
+            </div>
+                        <!-- buttons -->
+            <div class="music_controls">
+                <i class="fas fa-backward"  id="prev" title="Previous"></i>
+                <i class="fas fa-play main_button"  id="play" title="Play"></i>
+                <i class="fas fa-forward"  id="next" title="Next"></i>
+            </div>
+            <audio src="Songs/music1.mp3"></audio>
+        </div>
+    </div>
+
+    <script>
+ 
+         const play = document.getElementById("play");
+         const artist = document.getElementById("artist");
+         const title = document.getElementById("title");
+         const prev = document.getElementById("prev");
+         const next = document.getElementById("next");
+         const music = document.querySelector("audio");
+         const img = document.querySelector("img")
+         
+         const songs = [{name:"music1",title:"Back To Me",artist:"Jay Someday"},
+                       {name:"music2",title:"lounging by moonlight",artist:"Ahjay Stelino"},
+                       {name:"music3",title:"Beach",artist:"MBB"},
+                       {name:"music4",title:"jazz In Paris",artist:"Media Right Productions"},
+                       {name:"music5",title:"Dreams",artist:"Bensound"},
+                      ]
+        idx =0; //current song's Index
+
+        play.addEventListener('click',() =>{
+            if (music.paused){
+              music.play();
+              play.classList.replace('fa-play',"fa-pause")
+              img.classList.add("anime");
+            }
+            else{
+                music.pause();
+                play.classList.replace('fa-pause',"fa-play")
+                img.classList.remove("anime");
+            }
+        })
+        next.addEventListener('click',() =>{
+            idx = (idx+1)%songs.length;
+            title.textContent=songs[idx].title;
+            artist.textContent=songs[idx].artist;
+            music.src=`Songs/${songs[idx].name}.mp3`;
+            img.src="Images/"+songs[idx].name+".jpg";
+
+            // Play Song
+            music.play();
+            play.classList.replace('fa-play',"fa-pause")
+            img.classList.add("anime");
+        })
+        prev.addEventListener('click',() =>{
+            idx = (idx-1 + songs.length)%songs.length;
+            title.textContent=songs[idx].title;
+            artist.textContent=songs[idx].artist;
+            music.src=`Songs/${songs[idx].name}.mp3`;
+            img.src="Images/"+songs[idx].name+".jpg";
+
+            // Play Song
+            music.play();
+            play.classList.replace('fa-play',"fa-pause")
+            img.classList.add("anime");
+        })
+    </script>
+</body>
+</html>
